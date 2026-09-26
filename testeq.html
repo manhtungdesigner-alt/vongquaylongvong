@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="vi" class="h-full">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trang Test EQ 30 Câu Chuyên Sâu</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Canvas Confetti CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <!-- Google Fonts Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 h-full flex flex-col selection:bg-indigo-500 selection:text-white">
+
+    <header class="bg-white border-b border-slate-200 sticky top-0 z-50 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <div class="bg-indigo-600 text-white p-2 rounded-xl shadow-md">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+                    </svg>
+                </div>
+                <div>
+                    <h1 class="text-lg font-bold text-slate-900 leading-tight">Trắc Nghiệm EQ Chuyên Sâu</h1>
+                    <p class="text-xs text-slate-500">Đánh giá Trí tuệ Cảm xúc 4 Trụ Cột (30 Câu)</p>
+                </div>
+            </div>
+            <div class="flex items-center space-x-3">
+                <!-- Nút chuyển về Trang chủ / Vòng quay -->
+                <a href="index.html" class="text-xs font-semibold text-slate-700 bg-slate-100 hover:bg-slate-200 px-3.5 py-2 rounded-xl transition flex items-center space-x-1.5 shadow-sm">
+                    <svg class="w-4 h-4 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>
+                    <span>Trang Chủ (Vòng Quay)</span>
+                </a>
+                <button onclick="app.showHistoryModal()" class="text-xs font-medium text-slate-600 hover:text-indigo-600 bg-slate-100 hover:bg-slate-200 px-3 py-2 rounded-lg transition flex items-center space-x-1">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    <span>Lịch sử Test</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 flex flex-col">
+
+        <!-- VIEW 1: WELCOME SCREEN -->
+        <div id="welcome-view" class="my-auto max-w-2xl mx-auto bg-white rounded-2xl shadow-xl border border-slate-100 p-8 text-center">
+            <div class="inline-flex bg-indigo-50 text-indigo-600 p-4 rounded-full mb-6">
+                <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                </svg>
+            </div>
+            <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 mb-4">Khám Phá Chỉ Số Cảm Xúc (EQ) Của Bạn</h2>
+            <p class="text-slate-600 mb-8 leading-relaxed">
+                Bài kiểm tra gồm 30 câu hỏi chuyên sâu được thiết kế khoa học để đo lường 4 trụ cột EQ cốt lõi: 
+                <span class="font-semibold text-indigo-600">Tự nhận thức</span>, 
+                <span class="font-semibold text-indigo-600">Quản lý cảm xúc</span>, 
+                <span class="font-semibold text-indigo-600">Động lực bản thân</span>, và 
+                <span class="font-semibold text-indigo-600">Kỹ năng xã hội</span>.
+            </p>
+            <div class="bg-slate-50 rounded-xl p-4 mb-8 text-left text-sm text-slate-600 space-y-2 border border-slate-100">
+                <div class="flex items-center space-x-2">
+                    <span class="w-2 h-2 rounded-full bg-indigo-500"></span>
+                    <span>Thời gian làm bài ước tính: 5 - 7 phút.</span>
+                </div>
+                <div class="flex items-center space-x-2">
+                    <span class="w-2 h-2 rounded-full bg-indigo-500"></span>
+                    <span>Hãy chọn đáp án phản ánh đúng nhất bản năng và cảm xúc thực tế của bạn.</span>
+                </div>
+                <div class="flex items-center space-x-2">
+                    <span class="w-2 h-2 rounded-full bg-indigo-500"></span>
+                    <span>Có thể dễ dàng điều hướng qua lại giữa các câu hỏi bằng bảng điều khiển trực quan.</span>
+                </div>
+            </div>
+            <button onclick="app.startTest()" class="w-full sm:w-auto px-8 py-3.5 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded-xl shadow-lg shadow-indigo-200 transition transform active:scale-95">
+                Bắt Đầu Kiểm Tra Ngay
+            </button>
+        </div>
+
+        <!-- VIEW 2: QUIZ SCREEN -->
+        <div id="quiz-view" class="hidden flex-1 flex flex-col lg:flex-row gap-8">
+            <div class="flex-1 flex flex-col bg-white rounded-2xl shadow-sm border border-slate-200 p-6 sm:p-8">
+                <div class="flex items-center justify-between pb-6 border-b border-slate-100 mb-6">
+                    <div>
+                        <span id="question-pillar-badge" class="inline-block px-3 py-1 bg-indigo-50 text-indigo-700 text-xs font-semibold rounded-full mb-1">Trụ cột</span>
+                        <h3 class="text-sm font-medium text-slate-500">Câu hỏi <span id="current-q-num">1</span> / 30</h3>
+                    </div>
+                    <div class="text-right">
+                        <span class="text-sm font-semibold text-slate-700" id="answered-count">0</span><span class="text-xs text-slate-400">/30 đã trả lời</span>
+                    </div>
+                </div>
+
+                <div class="w-full bg-slate-100 h-2 rounded-full mb-8 overflow-hidden">
+                    <div id="progress-bar" class="bg-indigo-600 h-full transition-all duration-300" style="width: 3.33%"></div>
+                </div>
+
+                <div class="mb-8 flex-1">
+                    <h2 id="question-title" class="text-lg sm:text-xl font-bold text-slate-900 leading-snug"></h2>
+                </div>
+
+                <div id="options-container" class="space-y-3 mb-8"></div>
+
+                <div class="flex items-center justify-between pt-4 border-t border-slate-100">
+                    <button onclick="app.prevQuestion()" id="btn-prev" class="px-5 py-2.5 bg-white border border-slate-300 hover:bg-slate-50 text-slate-700 font-medium rounded-xl transition disabled:opacity-40 disabled:cursor-not-allowed">
+                        Quay lại
+                    </button>
+                    <button onclick="app.nextQuestion()" id="btn-next" class="px-6 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded-xl transition shadow-md shadow-indigo-100">
+                        Câu tiếp theo
+                    </button>
+                </div>
+            </div>
+
+            <div class="w-full lg:w-80 bg-white rounded-2xl shadow-sm border border-slate-200 p-6 flex flex-col">
+                <h4 class="font-bold text-slate-900 mb-3 text-sm flex items-center justify-between">
+                    <span>Bảng Điều Hướng Câu Hỏi</span>
+                    <span class="text-xs text-indigo-600 font-normal">Nhấn để chuyển nhanh</span>
+                </h4>
+                <div id="question-grid" class="grid grid-cols-6 gap-2 mb-6"></div>
+                <div class="mt-auto pt-4 border-t border-slate-100 flex flex-col gap-2">
+                    <div class="flex items-center text-xs text-slate-500 justify-between">
+                        <span class="flex items-center space-x-1"><span class="w-3 h-3 bg-indigo-600 rounded-sm inline-block"></span><span>Đã chọn</span></span>
+                        <span class="flex items-center space-x-1"><span class="w-3 h-3 bg-slate-100 border border-slate-200 rounded-sm inline-block"></span><span>Chưa chọn</span></span>
+                    </div>
+                    <button onclick="app.submitTest()" class="w-full mt-2 py-3 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold rounded-xl transition shadow-md shadow-emerald-100">
+                        Nộp Bài & Xem Kết Quả
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- VIEW 3: RESULT SCREEN -->
+        <div id="result-view" class="hidden flex-col gap-8 max-w-5xl mx-auto w-full">
+            <div class="bg-gradient-to-r from-indigo-600 to-violet-600 rounded-3xl p-8 text-white shadow-xl relative overflow-hidden">
+                <div class="absolute right-0 top-0 transform translate-x-8 -translate-y-8 w-64 h-64 bg-white/10 rounded-full pointer-events-none blur-2xl"></div>
+                <div class="relative z-10 flex flex-col md:flex-row items-center justify-between gap-6">
+                    <div>
+                        <span class="bg-white/20 text-white text-xs font-semibold px-3 py-1 rounded-full uppercase tracking-wider inline-block mb-3">Kết quả đánh giá EQ</span>
+                        <h2 id="result-title-level" class="text-3xl font-extrabold mb-2">Chỉ Số EQ: Đang tính...</h2>
+                        <p id="result-summary-desc" class="text-indigo-100 max-w-xl text-sm leading-relaxed"></p>
+                    </div>
+                    <div class="bg-white/10 backdrop-blur-md rounded-2xl p-6 text-center border border-white/20 min-w-[160px]">
+                        <span class="block text-xs uppercase tracking-wider text-indigo-200 mb-1">Điểm EQ Tổng</span>
+                        <span id="result-total-score" class="text-4xl font-black">0</span><span class="text-xl font-bold text-indigo-200">/120</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 flex flex-col items-center justify-center">
+                    <h3 class="font-bold text-slate-900 mb-4 w-full text-left flex items-center space-x-2">
+                        <svg class="w-5 h-5 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.488 9H15V3.512A9.025 9.025 0 0120.488 9z"></path></svg>
+                        <span>Biểu Đồ Radar 4 Trụ Cột EQ</span>
+                    </h3>
+                    <div class="w-full max-w-sm h-72 relative flex items-center justify-center">
+                        <canvas id="eqRadarChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 flex flex-col">
+                    <h3 class="font-bold text-slate-900 mb-4 flex items-center space-x-2">
+                        <svg class="w-5 h-5 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
+                        <span>Phân Tích Chi Tiết Từng Trụ Cột</span>
+                    </h3>
+                    <div id="pillars-breakdown-list" class="space-y-4 flex-1 flex flex-col justify-around"></div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 sm:p-8">
+                <h3 class="text-lg font-bold text-slate-900 mb-4 flex items-center space-x-2">
+                    <svg class="w-6 h-6 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path></svg>
+                    <span>Lời Khuyên Phát Triển Bản Thân & Kết Luận Chuyên Sâu</span>
+                </h3>
+                <div id="detailed-advice-content" class="text-slate-600 space-y-4 leading-relaxed text-sm sm:text-base"></div>
+                <div class="mt-8 pt-6 border-t border-slate-100 flex flex-wrap gap-4 items-center justify-between">
+                    <button onclick="app.retakeTest()" class="px-6 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-medium rounded-xl transition flex items-center space-x-2">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
+                        <span>Làm Lại Bài Test</span>
+                    </button>
+                    <button onclick="app.showHistoryModal()" class="px-6 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded-xl transition shadow-md shadow-indigo-100 flex items-center space-x-2">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
+                        <span>Xem Lịch Sử Lưu Trữ</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- HISTORY MODAL -->
+    <div id="history-modal" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-white rounded-2xl shadow-2xl max-w-lg w-full p-6 border border-slate-100 flex flex-col max-h-[85vh]">
+            <div class="flex items-center justify-between pb-4 border-b border-slate-100 mb-4">
+                <h3 class="font-bold text-lg text-slate-900">Lịch Sử Các Lần Kiểm Tra EQ</h3>
+                <button onclick="app.closeHistoryModal()" class="text-slate-400 hover:text-slate-600 p-1 rounded-lg">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                </button>
+            </div>
+            <div id="history-list-container" class="flex-1 overflow-y-auto space-y-3 pr-1 mb-4"></div>
+            <div class="pt-4 border-t border-slate-100 flex justify-between items-center">
+                <button onclick="app.clearHistory()" class="text-xs text-rose-600 hover:text-rose-700 font-medium">Xóa lịch sử</button>
+                <button onclick="app.closeHistoryModal()" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 font-medium rounded-xl text-sm transition">Đóng</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const PILLARS = {
+            self_awareness: { name: "Tự Nhận Thức (Self-Awareness)", color: "#6366f1" },
+            self_management: { name: "Quản Lý Cảm Xúc (Self-Management)", color: "#8b5cf6" },
+            motivation: { name: "Động Lực Bản Thân (Motivation)", color: "#ec4899" },
+            social_skills: { name: "Kỹ Năng Xã Hội (Social Skills)", color: "#3b82f6" }
+        };
+
+        const QUESTIONS = [
+            { id: 1, pillar: 'self_awareness', text: "Khi cảm thấy buồn bực hoặc cáu giận xuất hiện, bạn thường nhận ra ngay nguyên nhân cụ thể gây ra cảm giác đó không?", options: [{text: "Luôn luôn nhận ra nguyên nhân sâu xa", score: 4}, {text: "Thường xuyên nhận ra sau một lúc suy nghĩ", score: 3}, {text: "Đôi khi nhận ra, đôi khi bị cuốn đi", score: 2}, {text: "Rất hiếm khi, thường chỉ thấy bực bội vô cớ", score: 1}] },
+            { id: 2, pillar: 'self_awareness', text: "Bạn có rõ ràng về điểm mạnh và điểm yếu cốt lõi của bản thân trong công việc hay cuộc sống không?", options: [{text: "Rất rõ ràng và thường xuyên đánh giá lại", score: 4}, {text: "Khá rõ ràng ở phần lớn các khía cạnh", score: 3}, {text: "Chỉ mơ hồ một số điểm", score: 2}, {text: "Chưa bao giờ suy ngẫm kỹ về điều này", score: 1}] },
+            { id: 3, pillar: 'self_awareness', text: "Khi người khác góp ý hoặc phê bình, phản ứng tự nhiên đầu tiên của bạn là gì?", options: [{text: "Lắng nghe bình tĩnh và tự suy ngẫm xem góp ý có đúng không", score: 4}, {text: "Hơi chạnh lòng nhưng sau đó cố gắng tiếp thu", score: 3}, {text: "Cảm thấy bị tấn công hoặc tìm cách bào chữa ngay", score: 2}, {text: "Tỏ thái độ phòng thủ và khó chịu rõ rệt", score: 1}] },
+            { id: 4, pillar: 'self_awareness', text: "Bạn có dễ dàng gọi tên chính xác cảm xúc hiện tại của mình (ví dụ: lo âu, thất vọng, hụt hẫng, hay ghen tị)?", options: [{text: "Rất rạch ròi và phân tách rõ cảm xúc của mình", score: 4}, {text: "Thường gọi tên được các cảm xúc phổ biến", score: 3}, {text: "Chỉ phân biệt được cảm xúc chung chung (vui/buồn)", score: 2}, {text: "Thường bị lẫn lộn giữa các loại cảm xúc", score: 1}] },
+            { id: 5, pillar: 'self_awareness', text: "Bạn có nhận thức được cơ thể mình phản ứng thế nào (như tim đập nhanh, căng cơ) khi gặp tình huống áp lực không?", options: [{text: "Nhận biết rất nhanh những thay đổi nhỏ của cơ thể", score: 4}, {text: "Nhận biết khi áp lực bắt đầu tăng cao", score: 3}, {text: "Chỉ nhận ra khi cơ thể đã quá mệt mỏi hoặc kiệt sức", score: 2}, {text: "Hầu như không chú ý đến tín hiệu cơ thể", score: 1}] },
+            { id: 6, pillar: 'self_awareness', text: "Bạn có thường xuyên dành thời gian tĩnh lặng để kiểm điểm nội tâm và cảm xúc bản thân trong tuần không?", options: [{text: "Có, đều đặn mỗi ngày hoặc mỗi tuần", score: 4}, {text: "Thỉnh thoảng khi gặp biến cố lớn", score: 3}, {text: "Rất ít khi vì quá bận rộn", score: 2}, {text: "Không bao giờ", score: 1}] },
+            { id: 7, pillar: 'self_awareness', text: "Bạn có hiểu rõ những giá trị cốt lõi nào là quan trọng nhất đối với cuộc đời mình không?", options: [{text: "Rất rõ ràng và dùng chúng làm kim chỉ nam sống", score: 4}, {text: "Khá rõ nhưng đôi khi bị chi phối bởi hoàn cảnh", score: 3}, {text: "Chưa xác định rõ ràng lắm", score: 2}, {text: "Chưa từng suy nghĩ về giá trị cốt lõi", score: 1}] },
+            { id: 8, pillar: 'self_management', text: "Khi gặp tình huống bất ngờ gây tức giận dữ dội, bạn kiểm soát phản ứng của mình ra sao?", options: [{text: "Hít sâu, giữ bình tĩnh và xử lý lý trí", score: 4}, {text: "Cố kìm nén nhưng mặt thể hiện rõ sự khó chịu", score: 3}, {text: "Đôi khi bùng nổ lời nói hoặc hành động thiếu kiểm soát", score: 2}, {text: "Hoàn toàn để cơn giận chi phối và nói/làm những điều hối hận", score: 1}] },
+            { id: 9, pillar: 'self_management', text: "Khi đối mặt với deadline gấp hoặc khối lượng công việc quá tải, tâm lý của bạn thường thế nào?", options: [{text: "Bình tĩnh lập kế hoạch ưu tiên từng việc một", score: 4}, {text: "Hơi lo lắng nhưng vẫn hoàn thành mục tiêu", score: 3}, {text: "Cảm thấy hoảng loạn, mất phương hướng và dễ sai sót", score: 2}, {text: "Trì hoãn, tê liệt tinh thần và bỏ dở công việc", score: 1}] },
+            { id: 10, pillar: 'self_management', text: "Bạn xử lý các suy nghĩ tiêu cực hoặc sự tự ti bủa vây như thế nào?", options: [{text: "Nhận diện, thách thức suy nghĩ tiêu cực và chuyển hướng tích cực", score: 4}, {text: "Cố gắng lờ đi hoặc tìm việc khác để phân tâm", score: 3}, {text: "Chìm đắm trong suy nghĩ tiêu cực một thời gian dài", score: 2}, {text: "Tin hoàn toàn vào những suy nghĩ tự ti đó", score: 1}] },
+            { id: 11, pillar: 'self_management', text: "Khi kế hoạch quan trọng đổ bể vào phút chót, phản ứng chủ đạo của bạn là gì?", options: [{text: "Chấp nhận thực tế nhanh chóng và tìm phương án B", score: 4}, {text: "Buồn bã một chút rồi mới tìm cách xoay sở", score: 3}, {text: "Than vãn, trách móc hoàn cảnh hoặc người khác", score: 2}, {text: "Tuyệt vọng và từ bỏ mọi nỗ lực cứu vãn", score: 1}] },
+            { id: 12, pillar: 'self_management', text: "Bạn có giữ được sự điềm đạm khi tranh luận công việc trái quan điểm với người khác không?", options: [{text: "Luôn tôn trọng và tập trung vào luận điểm thay vì cảm xúc cá nhân", score: 4}, {text: "Phần lớn giữ được bình tĩnh trừ khi đối phương quá vô lý", score: 3}, {text: "Dễ bị cuốn vào tranh cãi gay gắt, hơn thua", score: 2}, {text: "Nổi giận, công kích cá nhân hoặc cắt ngang lời", score: 1}] },
+            { id: 13, pillar: 'self_management', text: "Bạn có kiểm soát tốt các thói quen cá nhân mang tính tức thời (như lướt mạng xã hội quá đà, ăn uống vô độ) khi căng thẳng không?", options: [{text: "Kiểm soát rất tốt, có kỷ luật thép", score: 4}, {text: "Thỉnh thoảng sa đà nhưng dừng lại được", score: 3}, {text: "Thường xuyên dùng chúng như cách trốn tránh thực tế", score: 2}, {text: "Hoàn toàn buông thả bản thân", score: 1}] },
+            { id: 14, pillar: 'self_management', text: "Khi phạm sai lầm lớn ảnh hưởng đến tập thể, bạn xử lý cảm giác tội lỗi/xấu hổ ra sao?", options: [{text: "Đối mặt, nhận trách nhiệm công khai và tìm cách khắc phục hậu quả", score: 4}, {text: "Hơi dằn vặt nhưng tập trung sửa sai", score: 3}, {text: "Tìm cách che giấu hoặc đổ lỗi vòng vo", score: 2}, {text: "Chìm đắm trong sự tự dằn vặt, trốn tránh thực tế", score: 1}] },
+            { id: 15, pillar: 'self_management', text: "Bạn có thể tự vực dậy tinh thần (tự truyền lửa) sau một thất bại cay đắng không?", options: [{text: "Xem đó là bài học quý giá và đứng dậy rất nhanh", score: 4}, {text: "Cần vài ngày để hồi phục năng lượng rồi tiếp tục", score: 3}, {text: "Mất rất nhiều thời gian để dám làm lại từ đầu", score: 2}, {text: "Mất niềm tin hoàn toàn và không bao giờ dám thử lại", score: 1}] },
+            { id: 16, pillar: 'motivation', text: "Ngay cả khi không có người giám sát hoặc khen thưởng, bạn có tự giác hoàn thành tốt nhiệm vụ được giao không?", options: [{text: "Luôn luôn tự giác với tiêu chuẩn chất lượng cao nhất", score: 4}, {text: "Hoàn thành đúng hạn các nhiệm vụ đề ra", score: 3}, {text: "Cần có đôn đốc hoặc deadline sát nút mới làm", score: 2}, {text: "Thường xuyên trì hoãn hoặc làm qua loa", score: 1}] },
+            { id: 17, pillar: 'motivation', text: "Khi đặt ra mục tiêu dài hạn đầy thách thức (như học kỹ năng mới, thăng tiến), bạn duy trì sự kiên trì ra sao?", options: [{text: "Chia nhỏ mục tiêu và bền bỉ hành động mỗi ngày", score: 4}, {text: "Cố gắng duy trì hứng khởi dù đôi khi nản chí", score: 3}, {text: "Hào hứng ban đầu nhưng nhanh chóng bỏ cuộc giữa chừng", score: 2}, {text: "Chỉ nói miệng chứ không thực hiện", score: 1}] },
+            { id: 18, pillar: 'motivation', text: "Thái độ của bạn đối với các thử thách mới hoặc công việc khó khăn chưa từng làm là gì?", options: [{text: "Hào hứng coi đó là cơ hội phát triển bản thân", score: 4}, {text: "Sẵn sàng nhận việc dù hơi lo lắng", score: 3}, {text: "Cảm thấy e dè, miễn cưỡng nhận nếu bắt buộc", score: 2}, {text: "Né tránh triệt để mọi thử thách mới", score: 1}] },
+            { id: 19, pillar: 'motivation', text: "Khi gặp khó khăn liên tục trong việc đạt mục tiêu, điều gì thúc đẩy bạn tiếp tục?", options: [{text: "Ý nghĩa sâu xa và niềm đam mê với mục tiêu đó", score: 4}, {text: "Trách nhiệm với gia đình và bản thân", score: 3}, {text: "Sợ thất bại hoặc áp lực từ xung quanh", score: 2}, {text: "Không có động lực nào cả, dễ buông xuôi", score: 1}] },
+            { id: 20, pillar: 'motivation', text: "Bạn tự đánh giá mức độ lạc quan và hướng về phía trước của mình trong cuộc sống như thế nào?", options: [{text: "Luôn tìm thấy tia sáng và bài học trong mọi nghịch cảnh", score: 4}, {text: "Nhìn chung tích cực, đôi khi bị ảnh hưởng tiêu cực tạm thời", score: 3}, {text: "Thường xuyên bi quan, hay nghĩ đến viễn cảnh xấu", score: 2}, {text: "Tuyệt vọng và chán ghét thực tại", score: 1}] },
+            { id: 21, pillar: 'motivation', text: "Bạn có chủ động đầu tư thời gian, công sức để nâng cấp bản thân (đọc sách, học hỏi) mỗi ngày không?", options: [{text: "Có, duy trì thói quen phát triển bản thân đều đặn", score: 4}, {text: "Thỉnh thoảng tham gia các khóa học hoặc đọc sách", score: 3}, {text: "Chỉ học khi công ty yêu cầu bắt buộc", score: 2}, {text: "Hoàn toàn không có nhu cầu phát triển thêm", score: 1}] },
+            { id: 22, pillar: 'motivation', text: "Bạn có cảm thấy hào hứng khi bắt đầu ngày mới với các công việc đã lên lịch không?", options: [{text: "Rất hào hứng và tràn đầy năng lượng tích cực", score: 4}, {text: "Bình thường, sẵn sàng giải quyết công việc", score: 3}, {text: "Cảm thấy mệt mỏi, chán nản khi nghĩ đến công việc", score: 2}, {text: "Cực kỳ chán ghét và muốn trốn tránh ngày mới", score: 1}] },
+            { id: 23, pillar: 'social_skills', text: "Khi người khác đang trò chuyện hoặc tâm sự, bạn lắng nghe như thế nào?", options: [{text: "Lắng nghe chân thành, thấu cảm, không ngắt lời hay phán xét", score: 4}, {text: "Lắng nghe khá tốt nhưng đôi khi nghĩ về câu trả lời của mình", score: 3}, {text: "Dễ mất tập trung hoặc hay chen ngang kể chuyện của mình", score: 2}, {text: "Nóng lòng muốn kết thúc cuộc trò chuyện", score: 1}] },
+            { id: 24, pillar: 'social_skills', text: "Bạn có dễ dàng thấu hiểu góc nhìn và cảm xúc của người khác ngay cả khi không đồng tình với họ không?", options: [{text: "Rất giỏi đặt mình vào vị trí của họ để thấu hiểu", score: 4}, {text: "Có thể hiểu nếu cố gắng suy xét từ phía họ", score: 3}, {text: "Khó thấu hiểu nếu quan điểm khác biệt với mình", score: 2}, {text: "Cho rằng quan điểm của người khác là sai lầm, vô lý", score: 1}] },
+            { id: 25, pillar: 'social_skills', text: "Khi xảy ra xung đột lợi ích giữa bạn và đồng nghiệp/bạn bè, bạn giải quyết ra sao?", options: [{text: "Chủ động đối thoại cởi mở tìm giải pháp win-win đôi bên cùng có lợi", score: 4}, {text: "Cố gắng nhượng bộ hoặc thương lượng ôn hòa", score: 3}, {text: "Tranh cãi gay gắt để bảo vệ lợi ích bản thân hoặc im lặng ấm ức", score: 2}, {text: "Cắt đứt quan hệ hoặc chơi xấu đối phương", score: 1}] },
+            { id: 26, pillar: 'social_skills', text: "Bạn có khả năng truyền cảm hứng, khích lệ và tạo động lực cho những người xung quanh không?", options: [{text: "Thường xuyên được người khác tìm đến để xin lời khuyên và tiếp năng lượng", score: 4}, {text: "Biết cách cổ vũ bạn bè khi họ buồn", score: 3}, {text: "Ít khi quan tâm đến cảm xúc hay động lực của người khác", score: 2}, {text: "Hay phàn nàn và kéo năng lượng của người khác xuống", score: 1}] },
+            { id: 27, pillar: 'social_skills', text: "Bạn xây dựng và duy trì các mối quan hệ xã hội, đối tác, bạn bè như thế nào?", options: [{text: "Chủ động chăm sóc, giữ kết nối chân thành và sâu sắc", score: 4}, {text: "Duy trì quan hệ xã giao ôn hòa, lịch sự", score: 3}, {text: "Sống khép kín, chờ người khác chủ động kết nối", score: 2}, {text: "Gặp khó khăn lớn trong việc giao tiếp và kết bạn", score: 1}] },
+            { id: 28, pillar: 'social_skills', text: "Bạn có nhận ra được các ám hiệu phi ngôn ngữ (như nét mặt, ánh mắt, ngôn ngữ cơ thể) của người đối diện không?", options: [{text: "Nhạy bén nhận biết rất tinh tế sự thay đổi cảm xúc qua cử chỉ", score: 4}, {text: "Nhận ra khi có biểu hiện rõ ràng", score: 3}, {text: "Thường bỏ qua các tín hiệu phi ngôn ngữ", score: 2}, {text: "Hoàn toàn vô tâm, không quan sát đối phương", score: 1}] },
+            { id: 29, pillar: 'social_skills', text: "Khi làm việc nhóm, bạn thường đóng vai trò gì trong việc gắn kết các thành viên?", options: [{text: "Người kết nối, hòa giải mâu thuẫn và điều phối nhịp nhàng", score: 4}, {text: "Thành viên tích cực hoàn thành tốt phần việc của mình", score: 3}, {text: "Chỉ làm việc độc lập, ít tương tác với nhóm", score: 2}, {text: "Gây chia rẽ, bất hòa hoặc trì trệ trong nhóm", score: 1}] },
+            { id: 30, pillar: 'social_skills', text: "Bạn có dễ dàng thích nghi với môi trường giao tiếp hoặc văn hóa nhóm mới hoàn toàn không?", options: [{text: "Cởi mở, hòa nhập nhanh chóng và tạo được thiện cảm tốt", score: 4}, {text: "Mất một thời gian ngắn để làm quen rồi hòa nhập", score: 3}, {text: "Cảm thấy rụt rè, khó khăn lớn khi vào môi trường mới", score: 2}, {text: "Cô lập bản thân và từ chối giao tiếp", score: 1}] }
+        ];
+
+        class EQTestApp {
+            constructor() {
+                this.currentIndex = 0;
+                this.answers = new Array(QUESTIONS.length).fill(null);
+                this.radarChartInstance = null;
+                this.init();
+            }
+
+            init() {
+                this.renderGrid();
+                this.updateUI();
+            }
+
+            startTest() {
+                document.getElementById('welcome-view').classList.add('hidden');
+                document.getElementById('result-view').classList.add('hidden');
+                document.getElementById('quiz-view').classList.remove('hidden');
+                this.currentIndex = 0;
+                this.renderQuestion();
+                this.updateUI();
+            }
+
+            renderQuestion() {
+                const q = QUESTIONS[this.currentIndex];
+                document.getElementById('current-q-num').textContent = this.currentIndex + 1;
+                document.getElementById('question-title').textContent = q.text;
+
+                const pillarInfo = PILLARS[q.pillar];
+                const badge = document.getElementById('question-pillar-badge');
+                badge.textContent = pillarInfo.name;
+                badge.style.backgroundColor = pillarInfo.color + '15';
+                badge.style.color = pillarInfo.color;
+
+                const optionsContainer = document.getElementById('options-container');
+                optionsContainer.innerHTML = '';
+
+                q.options.forEach((opt, idx) => {
+                    const isSelected = this.answers[this.currentIndex] === opt.score;
+                    const btn = document.createElement('button');
+                    btn.className = `w-full text-left p-4 rounded-xl border transition flex items-center justify-between ${
+                        isSelected 
+                            ? 'border-indigo-600 bg-indigo-50/50 text-indigo-900 shadow-sm' 
+                            : 'border-slate-200 hover:border-slate-300 hover:bg-slate-50 text-slate-700'
+                    }`;
+                    btn.innerHTML = `
+                        <div class="flex items-center space-x-3">
+                            <span class="w-6 h-6 rounded-full border flex items-center justify-center text-xs font-bold ${
+                                isSelected ? 'border-indigo-600 bg-indigo-600 text-white' : 'border-slate-300 text-slate-500'
+                            }">${String.fromCharCode(65 + idx)}</span>
+                            <span class="text-sm font-medium">${opt.text}</span>
+                        </div>
+                    `;
+                    btn.onclick = () => this.selectAnswer(opt.score);
+                    optionsContainer.appendChild(btn);
+                });
+
+                document.getElementById('btn-prev').disabled = this.currentIndex === 0;
+                document.getElementById('btn-next').textContent = this.currentIndex === QUESTIONS.length - 1 ? 'Xem Kết Quả' : 'Câu tiếp theo';
+                
+                this.updateGrid();
+            }
+
+            selectAnswer(score) {
+                this.answers[this.currentIndex] = score;
+                this.renderQuestion();
+                this.updateAnsweredCount();
+
+                if (this.currentIndex < QUESTIONS.length - 1) {
+                    setTimeout(() => {
+                        this.nextQuestion();
+                    }, 250);
+                }
+            }
+
+            nextQuestion() {
+                if (this.currentIndex < QUESTIONS.length - 1) {
+                    this.currentIndex++;
+                    this.renderQuestion();
+                } else {
+                    this.submitTest();
+                }
+            }
+
+            prevQuestion() {
+                if (this.currentIndex > 0) {
+                    this.currentIndex--;
+                    this.renderQuestion();
+                }
+            }
+
+            goToQuestion(index) {
+                if (index >= 0 && index < QUESTIONS.length) {
+                    this.currentIndex = index;
+                    this.renderQuestion();
+                }
+            }
+
+            renderGrid() {
+                const grid = document.getElementById('question-grid');
+                grid.innerHTML = '';
+                QUESTIONS.forEach((q, idx) => {
+                    const btn = document.createElement('button');
+                    btn.id = `grid-btn-${idx}`;
+                    btn.className = `h-10 rounded-lg text-xs font-semibold border transition flex items-center justify-center ${
+                        this.currentIndex === idx ? 'ring-2 ring-indigo-400' : ''
+                    }`;
+                    btn.textContent = idx + 1;
+                    btn.onclick = () => this.goToQuestion(idx);
+                    grid.appendChild(btn);
+                });
+                this.updateGrid();
+            }
+
+            updateGrid() {
+                QUESTIONS.forEach((q, idx) => {
+                    const btn = document.getElementById(`grid-btn-${idx}`);
+                    if (!btn) return;
+                    const isAnswered = this.answers[idx] !== null;
+                    const isCurrent = this.currentIndex === idx;
+
+                    let classes = "h-10 rounded-lg text-xs font-semibold border transition flex items-center justify-center ";
+                    if (isCurrent) {
+                        classes += "ring-2 ring-indigo-600 ";
+                    }
+                    if (isAnswered) {
+                        classes += "bg-indigo-600 text-white border-indigo-600 shadow-sm";
+                    } else {
+                        classes += "bg-slate-50 text-slate-600 border-slate-200 hover:bg-slate-100";
+                    }
+                    btn.className = classes;
+                });
+            }
+
+            updateAnsweredCount() {
+                const answered = this.answers.filter(a => a !== null).length;
+                document.getElementById('answered-count').textContent = answered;
+                const progressPct = ((answered) / QUESTIONS.length) * 100;
+                document.getElementById('progress-bar').style.width = `${progressPct}%`;
+            }
+
+            updateUI() {
+                this.updateAnsweredCount();
+            }
+
+            submitTest() {
+                const unanswered = this.answers.filter(a => a === null).length;
+                if (unanswered > 0) {
+                    const confirmSubmit = window.confirm(`Bạn còn ${unanswered} câu chưa trả lời. Bạn có chắc chắn muốn nộp bài không?`);
+                    if (!confirmSubmit) return;
+                }
+
+                const scores = {
+                    self_awareness: 0,
+                    self_management: 0,
+                    motivation: 0,
+                    social_skills: 0
+                };
+
+                const maxScores = {
+                    self_awareness: 7 * 4,
+                    self_management: 8 * 4,
+                    motivation: 7 * 4,
+                    social_skills: 8 * 4
+                };
+
+                QUESTIONS.forEach((q, idx) => {
+                    const ansScore = this.answers[idx] || 1;
+                    scores[q.pillar] += ansScore;
+                });
+
+                const totalScore = Object.values(scores).reduce((a, b) => a + b, 0);
+
+                this.saveToHistory({
+                    date: new Date().toLocaleDateString('vi-VN', { hour: '2-digit', minute: '2-digit', day: '2-digit', month: '2-digit', year: 'numeric' }),
+                    totalScore: totalScore,
+                    scores: scores
+                });
+
+                document.getElementById('quiz-view').classList.add('hidden');
+                document.getElementById('result-view').classList.remove('hidden');
+                document.getElementById('result-view').classList.add('flex');
+
+                this.renderResultsData(totalScore, scores, maxScores);
+                this.triggerConfetti();
+            }
+
+            renderResultsData(totalScore, scores, maxScores) {
+                document.getElementById('result-total-score').textContent = totalScore;
+
+                let levelTitle = "";
+                let levelDesc = "";
+
+                if (totalScore >= 100) {
+                    levelTitle = "EQ Xuất Sắc - Trí Tuệ Cảm Xúc Vượt Trội";
+                    levelDesc = "Bạn sở hữu sự thấu cảm sâu sắc, khả năng tự kiểm soát tuyệt vời và kỹ năng giao tiếp cực kỳ khéo léo. Bạn là nguồn cảm hứng và là điểm tựa vững chắc cho những người xung quanh.";
+                } else if (totalScore >= 80) {
+                    levelTitle = "EQ Khá Tốt - Trí Tuệ Cảm Xúc Ổn Định";
+                    levelDesc = "Bạn nhận thức tốt về bản thân và kiểm soát cảm xúc khá hiệu quả trong đa số tình huống. Tiếp tục phát huy kỹ năng xã hội sẽ giúp bạn bứt phá mạnh mẽ hơn nữa.";
+                } else if (totalScore >= 60) {
+                    levelTitle = "EQ Trung Bình - Cần Thêm Sự Rèn Luyện";
+                    levelDesc = "Bạn có tiềm năng lớn nhưng đôi khi vẫn bị cảm xúc lấn át hoặc gặp khó khăn khi đối diện với áp lực cao và các mối quan hệ phức tạp.";
+                } else {
+                    levelTitle = "EQ Cần Cải Thiện - Tiềm Năng Phát Triển Lớn";
+                    levelDesc = "Bạn thường xuyên để cảm xúc tiêu cực chi phối và gặp trở ngại trong việc thấu hiểu người khác. Việc rèn luyện tính kỷ luật cảm xúc sẽ mang lại thay đổi tích cực lớn cho cuộc đời bạn.";
+                }
+
+                document.getElementById('result-title-level').textContent = levelTitle;
+                document.getElementById('result-summary-desc').textContent = levelDesc;
+
+                const listContainer = document.getElementById('pillars-breakdown-list');
+                listContainer.innerHTML = '';
+
+                Object.keys(PILLARS).forEach(key => {
+                    const score = scores[key];
+                    const max = maxScores[key];
+                    const pct = Math.round((score / max) * 100);
+                    const pillar = PILLARS[key];
+
+                    const div = document.createElement('div');
+                    div.className = "bg-slate-50 p-4 rounded-xl border border-slate-100";
+                    div.innerHTML = `
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="text-xs font-bold text-slate-700">${pillar.name}</span>
+                            <span class="text-xs font-extrabold text-indigo-600">${score}/${max} (${pct}%)</span>
+                        </div>
+                        <div class="w-full bg-slate-200 h-2 rounded-full overflow-hidden">
+                            <div class="h-full rounded-full transition-all duration-500" style="width: ${pct}%; background-color: ${pillar.color}"></div>
+                        </div>
+                    `;
+                    listContainer.appendChild(div);
+                });
+
+                const adviceContainer = document.getElementById('detailed-advice-content');
+                adviceContainer.innerHTML = `
+                    <p><strong>1. Đánh giá tổng quan:</strong> Với tổng điểm <strong>${totalScore}/120 điểm</strong>, hồ sơ EQ của bạn thể hiện rõ thế mạnh cũng như những điểm mù cảm xúc cần lưu ý trong cả đời sống cá nhân lẫn công việc.</p>
+                    <p><strong>2. Trọng tâm cải thiện:</strong> Hãy tập trung rèn luyện các trụ cột có điểm số thấp nhất bằng cách thực hành viết nhật ký cảm xúc mỗi tối, thực hành hít thở sâu trước khi đưa ra quyết định quan trọng, và tích cực lắng nghe chủ động hơn khi trò chuyện với đồng nghiệp, người thân.</p>
+                    <p><strong>3. Kết luận:</strong> Trí tuệ cảm xúc (EQ) không phải là năng lực bẩm sinh cố định mà là một cơ bắp tinh thần có thể phát triển bền vững thông qua sự tự nhận thức và rèn luyện kỷ luật đều đặn mỗi ngày.</p>
+                `;
+
+                this.renderRadarChart(scores, maxScores);
+            }
+
+            renderRadarChart(scores, maxScores) {
+                const ctx = document.getElementById('eqRadarChart').getContext('2d');
+                if (this.radarChartInstance) {
+                    this.radarChartInstance.destroy();
+                }
+
+                const dataValues = [
+                    Math.round((scores.self_awareness / maxScores.self_awareness) * 100),
+                    Math.round((scores.self_management / maxScores.self_management) * 100),
+                    Math.round((scores.motivation / maxScores.motivation) * 100),
+                    Math.round((scores.social_skills / maxScores.social_skills) * 100)
+                ];
+
+                this.radarChartInstance = new Chart(ctx, {
+                    type: 'radar',
+                    data: {
+                        labels: ['Tự Nhận Thức', 'Quản Lý Cảm Xúc', 'Động Lực', 'Kỹ Năng Xã Hội'],
+                        datasets: [{
+                            label: 'Mức độ EQ (%)',
+                            data: dataValues,
+                            backgroundColor: 'rgba(99, 102, 241, 0.2)',
+                            borderColor: '#6366f1',
+                            pointBackgroundColor: '#6366f1',
+                            pointBorderColor: '#fff',
+                            pointHoverBackgroundColor: '#fff',
+                            pointHoverBorderColor: '#6366f1',
+                            borderWidth: 2
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        scales: {
+                            r: {
+                                angleLines: { display: true },
+                                suggestedMin: 0,
+                                suggestedMax: 100,
+                                ticks: { stepSize: 25, display: false }
+                            }
+                        },
+                        plugins: {
+                            legend: { display: false }
+                        }
+                    }
+                });
+            }
+
+            triggerConfetti() {
+                if (typeof confetti === 'function') {
+                    confetti({
+                        particleCount: 100,
+                        spread: 70,
+                        origin: { y: 0.6 }
+                    });
+                }
+            }
+
+            retakeTest() {
+                this.answers = new Array(QUESTIONS.length).fill(null);
+                document.getElementById('result-view').classList.remove('flex');
+                document.getElementById('result-view').classList.add('hidden');
+                this.startTest();
+            }
+
+            saveToHistory(record) {
+                let history = JSON.parse(localStorage.getItem('eq_test_history') || '[]');
+                history.unshift(record);
+                if (history.length > 10) history = history.slice(0, 10);
+                localStorage.setItem('eq_test_history', JSON.stringify(history));
+            }
+
+            showHistoryModal() {
+                const history = JSON.parse(localStorage.getItem('eq_test_history') || '[]');
+                const container = document.getElementById('history-list-container');
+                container.innerHTML = '';
+
+                if (history.length === 0) {
+                    container.innerHTML = `<p class="text-center text-slate-400 text-sm py-8">Chưa có lịch sử làm bài kiểm tra nào.</p>`;
+                } else {
+                    history.forEach((item, index) => {
+                        const div = document.createElement('div');
+                        div.className = "bg-slate-50 border border-slate-100 rounded-xl p-4 flex items-center justify-between";
+                        div.innerHTML = `
+                            <div>
+                                <span class="text-xs font-semibold text-slate-400 block mb-1">Lần ${history.length - index} • ${item.date}</span>
+                                <span class="text-sm font-bold text-slate-800">Tổng điểm: ${item.totalScore}/120 điểm</span>
+                            </div>
+                            <span class="px-3 py-1 bg-indigo-50 text-indigo-700 text-xs font-bold rounded-lg">${Math.round((item.totalScore/120)*100)}% EQ</span>
+                        `;
+                        container.appendChild(div);
+                    });
+                }
+
+                document.getElementById('history-modal').classList.remove('hidden');
+            }
+
+            closeHistoryModal() {
+                document.getElementById('history-modal').classList.add('hidden');
+            }
+
+            clearHistory() {
+                localStorage.removeItem('eq_test_history');
+                this.showHistoryModal();
+            }
+        }
+
+        const app = new EQTestApp();
+    </script>
+</body>
+</html>
